@@ -12,15 +12,7 @@ import java.util.Date;
 @Table(name="ingredients")
 public class Ingredient {
     @Id
-    @SequenceGenerator(
-            name = "ingredient_sequence",
-            sequenceName = "ingredient_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "ingredient_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private double quantity;
@@ -28,7 +20,6 @@ public class Ingredient {
     private Date createdAt;
     private Date updatedAt;
 
-    // Constructors
     public Ingredient(String name, double quantity, double price) {
         this.name = name;
         this.quantity = quantity;
@@ -37,7 +28,6 @@ public class Ingredient {
         this.updatedAt = new Date();
     }
 
-    // toString method
     @Override
     public String toString() {
         return "Ingredient{" +

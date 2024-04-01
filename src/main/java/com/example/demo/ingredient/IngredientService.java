@@ -1,11 +1,21 @@
 package com.example.demo.ingredient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class IngredientService {
 
-    public String getIngredients() {
-        return "Hello World";
+    private final IngredientRepository ingredientRepository;
+
+    @Autowired
+    public IngredientService(IngredientRepository ingredientRepository){
+        this.ingredientRepository = ingredientRepository;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredientRepository.findAll();
     }
 }
