@@ -1,5 +1,7 @@
-package com.example.demo.ingredient;
+package com.example.demo.controllers;
 
+import com.example.demo.models.Ingredient;
+import com.example.demo.services.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
