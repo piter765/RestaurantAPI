@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class IngredientConfig {
     @Bean
-    CommandLineRunner commandLineRunner(IngredientRepository repository) {
+    CommandLineRunner commandLineRunnerIngredient(IngredientRepository repository) {
         return args -> {
             Ingredient test1 = new Ingredient(
                     "test1",
