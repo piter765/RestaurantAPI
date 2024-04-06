@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,12 @@ public class Dish {
 
 //    @ManyToMany(mappedBy = "dishes", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     //private List<Ingredient> ingredients = new ArrayList<>();
+    @JsonIgnore
     @OneToMany(mappedBy = "dish")
     List<Dish_Ingredient> dishes_ingredients;
+
+    @ManyToMany
+    List<Order> orders;
 
     public Dish(String name, double price) {
         this.name = name;
