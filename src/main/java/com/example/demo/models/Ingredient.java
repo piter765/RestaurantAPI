@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,15 +19,25 @@ public class Ingredient {
     private String name;
     private double quantity;
     private double price;
-    private Date createdAt;
-    private Date updatedAt;
+    private Date created_at;
+    private Date updated_at;
+//    @ManyToMany(
+//            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+//    )
+//    @JoinTable(
+//            name = "dishes_ingredients",
+//            joinColumns = @JoinColumn(name = "dish_id"),
+//            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+//    )
+    @OneToMany(mappedBy = "ingredient")
+    List<Dish_Ingredient> dishes_ingredients;
 
     public Ingredient(String name, double quantity, double price) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
+        this.created_at = new Date();
+        this.updated_at = new Date();
     }
 
     @Override
@@ -35,8 +47,8 @@ public class Ingredient {
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
+                ", createdAt=" + created_at +
+                ", updatedAt=" + updated_at +
                 '}';
     }
 }
