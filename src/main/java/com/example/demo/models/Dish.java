@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,12 @@ public class Dish {
     private String name;
     private double price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dish")
     List<DishIngredient> dishes_ingredients;
+
+    @ManyToMany
+    List<Order> orders;
 
     public Dish(String name, double price) {
         this.name = name;

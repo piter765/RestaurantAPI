@@ -21,6 +21,9 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToMany
+    List<Dish> dishes;
+
     private int price;
     private Date createdAt;
 
