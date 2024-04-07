@@ -32,15 +32,15 @@ public class DishController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String> createDish(@RequestBody Dish dish) {
-        try {
-            dishService.createDish(dish);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully");
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<String> createDish(@RequestBody Dish dish) {
+//        try {
+//            dishService.createDish(dish);
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully");
+//        } catch (IllegalStateException e) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+//        }
+//    }
 
     @PostMapping
     public ResponseEntity<String> createDishWithIngredients(@RequestBody DishCreationRequest request) {

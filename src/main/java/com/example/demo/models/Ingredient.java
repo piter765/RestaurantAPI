@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Ingredient {
     private Date updated_at;
 
     @OneToMany(mappedBy = "ingredient")
-    List<DishIngredient> dishes_ingredients;
+    List<DishIngredient> dishes_ingredients = new ArrayList<>();
 
     public Ingredient(String name, double quantity, double price) {
         this.name = name;

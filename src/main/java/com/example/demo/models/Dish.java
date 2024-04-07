@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class Dish {
 
     @JsonIgnore
     @OneToMany(mappedBy = "dish")
-    List<DishIngredient> dishes_ingredients;
+    List<DishIngredient> dishes_ingredients = new ArrayList<>();
 
     @ManyToMany
     List<Order> orders;

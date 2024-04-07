@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.models.Dish;
 import com.example.demo.models.DishIngredient;
 import com.example.demo.models.Ingredient;
+import com.example.demo.repositories.DishIngredientRepository;
 import com.example.demo.repositories.DishRepository;
 import com.example.demo.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ import java.util.List;
 public class DishService {
     private final DishRepository dishRepository;
     private final IngredientRepository ingredientRepository;
+    private final DishIngredientRepository dishIngredientRepository;
 
     @Autowired
-    public DishService(DishRepository dishRepository, IngredientRepository ingredientRepository) {
+    public DishService(DishRepository dishRepository, IngredientRepository ingredientRepository, DishIngredientRepository dishIngredientRepository) {
         this.dishRepository = dishRepository;
         this.ingredientRepository = ingredientRepository;
+        this.dishIngredientRepository = dishIngredientRepository;
     }
 
     public List<Dish> getDishes() {
@@ -37,8 +40,11 @@ public class DishService {
             DishIngredient dishIngredient = new DishIngredient();
             dishIngredient.setIngredient(ingredient);
             dishIngredient.setDish(dish);
-            // Set any other properties like quantity if necessary
-            dish.getDishes_ingredients().add(dishIngredient);
+            // TODO Set any other properties like quantity if necessary
+
+            dish.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Dish
+            ingredient.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Ingredient
+            dishIngredientRepository.save(dishIngredient);
         }
         dishRepository.save(dish);
     }
