@@ -1,7 +1,7 @@
 package com.example.demo.configs;
 
 import com.example.demo.models.Dish;
-import com.example.demo.models.Dish_Ingredient;
+import com.example.demo.models.DishIngredient;
 import com.example.demo.models.Ingredient;
 import com.example.demo.repositories.DishIngredientRepository;
 import com.example.demo.repositories.DishRepository;
@@ -20,7 +20,7 @@ public class DishConfig {
     CommandLineRunner commandLineRunnerDishAndIngredient(IngredientRepository ingredientRepository, DishRepository dishRepository, DishIngredientRepository dishIngredientRepository) {
         return args -> {
             Ingredient ingredient1 = new Ingredient(
-                    "test1",
+                    "test2",
                     100,
                     2000
             );
@@ -32,12 +32,12 @@ public class DishConfig {
                     50
             );
 
-            Dish_Ingredient dishIngredient = new Dish_Ingredient();
+            DishIngredient dishIngredient = new DishIngredient();
             dishIngredient.setIngredient(ingredient1);
             dishIngredient.setDish(dish1);
             dishIngredient.setQuantity(1); // Set quantity as per your requirement
 
-            List<Dish_Ingredient> dishIngredients = new ArrayList<>();
+            List<DishIngredient> dishIngredients = new ArrayList<>();
             dishIngredients.add(dishIngredient);
 
             dish1.setDishes_ingredients(dishIngredients);

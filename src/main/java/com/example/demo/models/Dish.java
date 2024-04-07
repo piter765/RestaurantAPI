@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,10 +17,8 @@ public class Dish {
     private String name;
     private double price;
 
-//    @ManyToMany(mappedBy = "dishes", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    //private List<Ingredient> ingredients = new ArrayList<>();
     @OneToMany(mappedBy = "dish")
-    List<Dish_Ingredient> dishes_ingredients;
+    List<DishIngredient> dishes_ingredients;
 
     public Dish(String name, double price) {
         this.name = name;

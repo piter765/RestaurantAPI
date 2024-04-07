@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DTO.DishCreationRequest;
 import com.example.demo.models.Dish;
+import com.example.demo.models.DishIngredient;
 import com.example.demo.models.Ingredient;
 import com.example.demo.services.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,19 @@ public class DishController {
     public ResponseEntity<String> createDish(@RequestBody Dish dish) {
         try {
             dishService.createDish(dish);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Group added successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully");
         } catch (IllegalStateException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createDishWithIngredients(@RequestBody DishCreationRequest request) {
+        try {
+            dishService.createDishWithIngredients(request.getDishName(), request.getIngredientIds(), request.getPrice());
+            return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating dish: " + e.getMessage());
         }
     }
 
