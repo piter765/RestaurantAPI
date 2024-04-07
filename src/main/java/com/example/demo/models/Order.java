@@ -22,7 +22,11 @@ public class Order {
     private Customer customer;
 
     @ManyToMany
-    List<Dish> dishes;
+    @JoinTable(
+            name = "orders_dishes",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id"))
+    private List<Dish> dishes;
 
     private int price;
     private Date createdAt;

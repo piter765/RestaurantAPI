@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Ingredient {
     private Date created_at;
     private Date updated_at;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ingredient")
     List<DishIngredient> dishes_ingredients = new ArrayList<>();
 

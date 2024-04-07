@@ -23,7 +23,7 @@ public class Dish {
     @OneToMany(mappedBy = "dish")
     List<DishIngredient> dishes_ingredients = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "dishes")
     List<Order> orders;
 
     public Dish(String name, double price) {
