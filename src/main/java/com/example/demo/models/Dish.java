@@ -23,6 +23,7 @@ public class Dish {
     @OneToMany(mappedBy = "dish")
     List<DishIngredient> dishes_ingredients = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "dishes")
     List<Order> orders;
 
