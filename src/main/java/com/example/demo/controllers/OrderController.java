@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DTO.OrderCreationRequest;
 import com.example.demo.models.Customer;
 import com.example.demo.models.Order;
 import com.example.demo.services.CustomerService;
@@ -33,10 +34,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createOrder(@RequestBody Order order) {
+    public ResponseEntity<?> createOrder(@RequestBody OrderCreationRequest request) {
         try {
-            Order createdOrder = orderService.createOrder(order);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
+            orderService.createOrder(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Order added successfully");
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

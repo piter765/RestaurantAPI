@@ -16,6 +16,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String customerName;
+    private String email;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -28,12 +30,13 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "dish_id"))
     private List<Dish> dishes;
 
-    private int price;
+    private double price;
     private Date createdAt;
 
-    public Order(int price, Date createdAt) {
-        this.price = price;
-        this.createdAt = createdAt;
+    public Order(String customerName, String email) {
+        this.customerName = customerName;
+        this.email = email;
+        this.createdAt = new Date();
     }
 
     @Override

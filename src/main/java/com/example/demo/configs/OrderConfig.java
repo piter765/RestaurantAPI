@@ -13,7 +13,7 @@ public class OrderConfig {
     @Bean
     CommandLineRunner commandLineRunnerOrder(OrderRepository repository) {
         return args -> {
-            Order test1 = new  Order(100, new Date());
+            Order test1 = new  Order("Test user", "test@gmail.com");
 
             repository.save(test1);
         };

@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Customer;
-import com.example.demo.models.Order;
-import com.example.demo.repositories.CustomerRepository;
+import com.example.demo.DTO.OrderCreationRequest;
+import com.example.demo.models.*;
+import com.example.demo.repositories.DishRepository;
 import com.example.demo.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +14,31 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final DishRepository ingredientRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository){
+    public OrderService(OrderRepository orderRepository, DishRepository dishRepository){
         this.orderRepository = orderRepository;
+        this.ingredientRepository = dishRepository;
     }
 
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
 
-    public Order createOrder(Order order) {
-        return orderRepository.save(order);
+    public void createOrder(OrderCreationRequest request) {
+        Order order = new Order(request.getCustomerName(), request.getEmail());
+        List<Dish> dishes = ingredientRepository.findAllById(request.getDishIds());
+
+        double fullPrice = 0;
+        for (Dish dish : dishes) {
+            fullPrice += dish.getPrice();
+        }
+
+        order.setPrice(fullPrice);
+
+        order.setDishes(dishes);
+        orderRepository.save(order);
     }
 
     public Order updateOrder(Long id, Order updatedOrder) {
