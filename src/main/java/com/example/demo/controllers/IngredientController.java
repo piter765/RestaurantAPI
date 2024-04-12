@@ -41,9 +41,9 @@ public class IngredientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateIngredient(@PathVariable Long id, @RequestBody Ingredient updatedIngredient) {
+    public ResponseEntity<?> updateIngredient(@PathVariable Long id, @RequestBody double quantity) {
         try {
-            Ingredient ingredient = ingredientService.updateIngredient(id, updatedIngredient);
+            Ingredient ingredient = ingredientService.updateIngredient(id, quantity);
             if (ingredient != null) {
                 return ResponseEntity.ok().body(ingredient);
             } else {

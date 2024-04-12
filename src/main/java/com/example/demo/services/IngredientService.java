@@ -5,6 +5,7 @@ import com.example.demo.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,16 +24,18 @@ public class IngredientService {
     }
 
     public Ingredient createIngredient(Ingredient ingredient) {
+        ingredient.setCreated_at(new Date());
+        ingredient.setUpdated_at(new Date());
         return ingredientRepository.save(ingredient);
     }
 
-    public Ingredient updateIngredient(Long id, Ingredient updatedIngredient) {
+    public Ingredient updateIngredient(Long id, double quantity) {
         Optional<Ingredient> existingIngredientOptional = ingredientRepository.findById(id);
         if (existingIngredientOptional.isPresent()) {
             Ingredient existingIngredient = existingIngredientOptional.get();
 
-            existingIngredient.setName(updatedIngredient.getName());
-            existingIngredient.setQuantity(updatedIngredient.getQuantity());
+            existingIngredient.setQuantity(quantity);
+            existingIngredient.setUpdated_at(new Date());
 
             return ingredientRepository.save(existingIngredient);
         }
