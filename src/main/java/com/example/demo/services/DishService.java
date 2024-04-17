@@ -33,18 +33,21 @@ public class DishService {
         dishRepository.save(dish);
     }
 
-    public void createDishWithIngredients(String dishName, List<Long> ingredientIds, double price) {
+    public void createDishWithIngredients(String dishName, List<Long> ingredientIds, double price, int[] quantities) {
         Dish dish = new Dish(dishName, price);
         List<Ingredient> ingredients = ingredientRepository.findAllById(ingredientIds);
+        int i = 0;
         for (Ingredient ingredient : ingredients) {
             DishIngredient dishIngredient = new DishIngredient();
             dishIngredient.setIngredient(ingredient);
             dishIngredient.setDish(dish);
+            dishIngredient.setQuantity(quantities[i]);
             // TODO Set any other properties like quantity if necessary
 
             dish.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Dish
             ingredient.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Ingredient
             dishIngredientRepository.save(dishIngredient);
+            i++;
         }
         dishRepository.save(dish);
     }

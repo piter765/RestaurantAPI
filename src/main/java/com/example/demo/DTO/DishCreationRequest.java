@@ -11,4 +11,6 @@ public class DishCreationRequest {
     private String dishName;
     private List<Long> ingredientIds;
     private double price;
+    private int[] quantities;
+
 }

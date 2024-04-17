@@ -45,7 +45,7 @@ public class DishController {
     @PostMapping
     public ResponseEntity<String> createDishWithIngredients(@RequestBody DishCreationRequest request) {
         try {
-            dishService.createDishWithIngredients(request.getDishName(), request.getIngredientIds(), request.getPrice());
+            dishService.createDishWithIngredients(request.getDishName(), request.getIngredientIds(), request.getPrice(), request.getQuantities());
             return ResponseEntity.status(HttpStatus.CREATED).body("Dish added successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating dish: " + e.getMessage());
