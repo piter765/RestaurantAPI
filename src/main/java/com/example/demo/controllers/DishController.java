@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.DTO.DishCreationRequest;
+import com.example.demo.DTO.DishOrderStats;
 import com.example.demo.models.Dish;
 import com.example.demo.models.DishIngredient;
 import com.example.demo.models.Ingredient;
@@ -50,6 +51,11 @@ public class DishController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating dish: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/most-ordered")
+    public ResponseEntity<List<DishOrderStats>> getMostOrderedDishes() {
+        return ResponseEntity.ok(dishService.getMostOrderedDishes());
     }
 
 }

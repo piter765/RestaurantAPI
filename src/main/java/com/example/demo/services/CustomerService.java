@@ -2,11 +2,13 @@ package com.example.demo.services;
 
 import com.example.demo.models.Customer;
 import com.example.demo.models.Ingredient;
+import com.example.demo.models.Order;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +44,14 @@ public class CustomerService {
 
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
+    }
+
+    public List<Order> getCustomerOrders(Long customerId) {
+        Optional<Customer> customerOptional = customerRepository.findById(customerId);
+        if (customerOptional.isPresent()) {
+            Customer customer = customerOptional.get();
+            return customer.getOrders();
+        }
+        return Collections.emptyList();
     }
 }

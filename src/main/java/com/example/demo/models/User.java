@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -18,6 +20,27 @@ public class User {
     private String email;
     private String role;
     private String password;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = new Date();
+    }
 
     private String hashPassword(String password) {
         return new BCryptPasswordEncoder().encode(password);

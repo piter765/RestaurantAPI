@@ -10,15 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name="orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String customerName;
-    private String email;
 
     @JsonIgnore
     @ManyToOne
@@ -36,9 +33,7 @@ public class Order {
     private double price;
     private Date createdAt;
 
-    public Order(String customerName, String email) {
-        this.customerName = customerName;
-        this.email = email;
+    public Order() {
         this.createdAt = new Date();
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Customer;
+import com.example.demo.models.Order;
 import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,15 @@ public class CustomerController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<List<Order>> getCustomerOrders(@PathVariable("id") Long customerId) {
+        List<Order> orders = customerService.getCustomerOrders(customerId);
+        if (orders.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(orders);
     }
 }
 

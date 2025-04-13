@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.DTO.DishOrderStats;
 import com.example.demo.models.Dish;
 import com.example.demo.models.DishIngredient;
 import com.example.demo.models.Ingredient;
@@ -39,16 +40,24 @@ public class DishService {
         int i = 0;
         for (Ingredient ingredient : ingredients) {
             DishIngredient dishIngredient = new DishIngredient();
+
             dishIngredient.setIngredient(ingredient);
             dishIngredient.setDish(dish);
             dishIngredient.setQuantity(quantities[i]);
-            // TODO Set any other properties like quantity if necessary
 
             dish.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Dish
             ingredient.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Ingredient
+
             dishIngredientRepository.save(dishIngredient);
             i++;
         }
         dishRepository.save(dish);
+    }
+
+    public List<DishOrderStats> getMostOrderedDishes() {
+        List<Object[]> results = dishRepository.findMostOrderedDishes();
+        return results.stream()
+                .map(row -> new DishOrderStats((String) row[0], ((Number) row[1]).longValue()))
+                .toList();
     }
 }

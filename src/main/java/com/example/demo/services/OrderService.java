@@ -30,7 +30,7 @@ public class OrderService {
     }
 
     public void createOrder(OrderCreationRequest request) {
-        Order order = new Order(request.getCustomerName(), request.getEmail());
+        Order order = new Order();
         List<Dish> dishes = ingredientRepository.findAllById(request.getDishIds());
 
         Customer customer = new Customer(request.getCustomerName(), request.getEmail());
