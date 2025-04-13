@@ -29,15 +29,9 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
-<<<<<<< Updated upstream
     public Ingredient createIngredient(Ingredient ingredient) {
         ingredient.setCreated_at(new Date());
         ingredient.setUpdated_at(new Date());
-=======
-    public Ingredient createIngredient(IngredientCreationRequest request) {
-        System.out.println("w createIngredient!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        Ingredient ingredient = new Ingredient(request.getName(), request.getQuantity(), request.getPrice());
->>>>>>> Stashed changes
         return ingredientRepository.save(ingredient);
     }
 

@@ -32,9 +32,9 @@ public class IngredientController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createIngredient(@RequestBody IngredientCreationRequest request) {
+    public ResponseEntity<?> createIngredient(@RequestBody Ingredient ingredient) {
         try {
-            Ingredient createdIngredient = ingredientService.createIngredient(request);
+            Ingredient createdIngredient = ingredientService.createIngredient(ingredient);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdIngredient);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
