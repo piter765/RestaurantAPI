@@ -34,16 +34,33 @@ public class DishService {
         dishRepository.save(dish);
     }
 
+<<<<<<< Updated upstream
     public void createDishWithIngredients(String dishName, List<Long> ingredientIds, double price, int[] quantities) {
+=======
+    public void createDishWithIngredients(String dishName, List<Long> ingredientIds, List<Integer> quantities, double price) {
+>>>>>>> Stashed changes
         Dish dish = new Dish(dishName, price);
+
         List<Ingredient> ingredients = ingredientRepository.findAllById(ingredientIds);
+<<<<<<< Updated upstream
+=======
+
+        if (ingredients.size() != quantities.size()) {
+            throw new IllegalArgumentException("Number of ingredients does not match number of quantities.");
+        }
+
+>>>>>>> Stashed changes
         int i = 0;
         for (Ingredient ingredient : ingredients) {
             DishIngredient dishIngredient = new DishIngredient();
 
             dishIngredient.setIngredient(ingredient);
             dishIngredient.setDish(dish);
+<<<<<<< Updated upstream
             dishIngredient.setQuantity(quantities[i]);
+=======
+            dishIngredient.setQuantity(quantities.get(i++));
+>>>>>>> Stashed changes
 
             dish.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Dish
             ingredient.getDishes_ingredients().add(dishIngredient); // Add DishIngredient to Ingredient

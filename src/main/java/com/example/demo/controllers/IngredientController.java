@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.DTO.IngredientCreationRequest;
 import com.example.demo.models.Ingredient;
 import com.example.demo.services.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class IngredientController {
     }
 
     @GetMapping
-    public ResponseEntity<?>  getIngredients() {
+    public ResponseEntity<?> getIngredients() {
         try {
             List<Ingredient> ingredients = ingredientService.getIngredients();
             return ResponseEntity.ok().body(ingredients);
@@ -31,9 +32,9 @@ public class IngredientController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createIngredient(@RequestBody Ingredient ingredient) {
+    public ResponseEntity<?> createIngredient(@RequestBody IngredientCreationRequest request) {
         try {
-            Ingredient createdIngredient = ingredientService.createIngredient(ingredient);
+            Ingredient createdIngredient = ingredientService.createIngredient(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdIngredient);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -61,6 +62,16 @@ public class IngredientController {
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/restock")
+    public ResponseEntity<?> restockIngredients() {
+        try {
+            ingredientService.restockLowIngredientsWithCursor();
+            return ResponseEntity.ok("Ingredients with quantity < 50 were restocked to 100.");
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

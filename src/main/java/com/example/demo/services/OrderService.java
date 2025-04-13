@@ -6,8 +6,12 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.DishRepository;
 import com.example.demo.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +29,33 @@ public class OrderService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Order> getOrders() {
-        return orderRepository.findAll();
+//    public List<Order> getOrders(){
+//        return orderRepository.findAll();
+//    }
+
+    public List<Order> getOrders(String from, String to) throws Exception{
+        System.out.println("przed ifem");
+        System.out.println(from + "  " +  to + " dddd");
+        System.out.println((from instanceof String) + " type of");
+        System.out.println(from == null + " from == null");
+//        if (from.getClass().equals(String.class)) {
+//            System.out.println(" w ifie");
+            return orderRepository.findAll();
+       // }
+//        System.out.println("po ifie");
+//        Date fromDate = parseDate(from);
+//        Date toDate = parseDate(to);
+//        return orderRepository.findByDateBetween(fromDate, toDate);
+    }
+
+    private Date parseDate(String dateStr) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        return dateFormat.parse(dateStr);
+    }
+
+    private boolean isEmptyOrInvalidDate(String dateStr) {
+        return dateStr == null || dateStr.isEmpty();
     }
 
     public void createOrder(OrderCreationRequest request) {

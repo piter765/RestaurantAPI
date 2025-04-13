@@ -10,6 +10,7 @@ import java.util.List;
 public class DishCreationRequest {
     private String dishName;
     private List<Long> ingredientIds;
+    private List<Integer> quantities;
     private double price;
     private int[] quantities;
 

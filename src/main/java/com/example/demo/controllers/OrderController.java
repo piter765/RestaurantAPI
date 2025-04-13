@@ -24,11 +24,16 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getOrders() {
+    public ResponseEntity<?> getOrders(
+            @RequestParam(name = "from", required = false) String from,
+            @RequestParam(name = "to", required = false) String to
+    ) {
         try {
-            List<Order> orders = orderService.getOrders();
+            List<Order> orders = orderService.getOrders(from, to);
             return ResponseEntity.ok().body(orders);
         } catch(IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch(Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
